@@ -1,16 +1,3 @@
-# player_name_array = Array.new
-# rps = ["rock", "paper", "scissors"].sample
-#
-# puts "Welcome to the Roshambo simulator, please enter your name to start the game."
-# player_name = gets.chomp
-#
-# player_name_array << player_name unless player_name.empty?
-#
-# if player_name_array.length == 1
-#     puts "player detected"
-# else
-#   puts "no player"
-# end #==========================================================================
 @player_name = nil
 @player_choice = nil
 @draws = @wins = @losses = 0
@@ -18,7 +5,7 @@
 @bout_loss = 0
 Choices = %w(rock paper scissors)
 
-puts "Welcome to the Roshambo simulator, please enter your name to initialize the simulation."
+puts "Welcome to the Roshambo simulator, v2.2.3. Please enter your name to initialize the simulation."
 @player_name = gets.chomp.capitalize
 
 
@@ -49,9 +36,12 @@ else
   puts "..."
 end
 
+def replay
+end
+
 def game
   begin
-    puts "#{@player_name}, please type your choice, rock, paper, or scissors."
+    puts "#{@player_name}, please type your choice: rock, paper, or scissors."
     @player_choice = gets.chomp.downcase
   end until Choices.include?(@player_choice)
 
@@ -86,7 +76,10 @@ end
 
 game until @bout_win == 2 || @bout_loss == 2
 
-puts "this is the player choice"
-puts @player_choice
-puts "this is the ai choice"
-puts computer_choice
+puts "game over, play again? (y/n)"
+play_again = gets.chomp.downcase
+if play_again == "y"
+  game
+else
+  puts "thanks for playing, come again!"
+end
