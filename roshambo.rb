@@ -40,6 +40,11 @@ else
 end
 
 def game
+
+File.open "leaderboard.txt", "a" do |file|
+file.close
+end
+
   begin
     puts "#{@player_name}, please type your choice: rock, paper, or scissors."
     @player_choice = gets.chomp.downcase
@@ -66,7 +71,7 @@ def game
   if @wins == 2
     puts "Bout won!"
     @bout_win += 1
-    @wins = @losses = 1
+    @wins = @losses = 0
   elsif @losses == 2
     puts "Bout lost!"
     @bout_loss += 1
@@ -74,11 +79,29 @@ def game
   end
 
   if @bout_win == 2
-    @player_match_wins += 1
-    puts "YOU WON!"
-    puts "Current Leaderboard:"
-    puts "#{@player_name} match wins: #{@player_match_wins}"
-    puts "AI match wins: #{@ai_match_wins}"
+        ##Leaderboard file part
+    File.open "leaderboard.txt", 'w' do |file|
+      leaderboard_player += 1
+      leaderboard_ai += 0
+      file.close
+    end
+    File.open "leaderboard.txt", 'r' do |file|
+      leaderboard_player = file.gets.to_i
+      leaderboard_ai = file.gets.to_i
+      @player_match_wins = leaderboard_player
+      @ai_match_wins = leaderboard_ai
+      puts "YOU WON!"
+      puts "Current Leaderboard:"
+      puts "#{@player_name} match wins: #{leaderboard_player}"
+      puts "AI match wins: #{leaderboard_ai}"
+      file.close
+    end
+        ##leaderboard file end
+    #@player_match_wins += 1
+    # puts "YOU WON!"
+    # puts "Current Leaderboard:"
+    # puts "#{@player_name} match wins: #{@player_match_wins}"
+    # puts "AI match wins: #{@ai_match_wins}"
     puts ""
     puts "Would you like to play again?"
     @play_again = gets.chomp.downcase
@@ -88,11 +111,27 @@ def game
       @bout_loss = 0
     end
   elsif @bout_loss == 2
-    @ai_match_wins += 1
-    puts "YOU LOST!"
-    puts "Current Leaderboard:"
-    puts "#{@player_name} match wins: #{@player_match_wins}"
-    puts "AI match wins: #{@ai_match_wins}"
+    ##Leaderboard file part
+    File.open "leaderboard.txt", 'w' do |file|
+      leaderboard_player += 0
+      leaderboard_ai += 1
+      file.close
+    end
+    File.open "leaderboard.txt", 'r' do |file|
+      @player_match_wins = leaderboard_player
+      @ai_match_wins = leaderboard_ai
+      puts "YOU LOST!"
+      puts "Current Leaderboard:"
+      puts "#{@player_name} match wins: #{leaderboard_player}"
+      puts "AI match wins: #{leaderboard_ai}"
+      file.close
+    end
+    ##leaderboard file end
+    # @ai_match_wins += 1
+    # puts "YOU LOST!"
+    # puts "Current Leaderboard:"
+    # puts "#{@player_name} match wins: #{@player_match_wins}"
+    # puts "AI match wins: #{@ai_match_wins}"
     puts ""
     puts "Would you like to play again?"
     @play_again = gets.chomp.downcase
