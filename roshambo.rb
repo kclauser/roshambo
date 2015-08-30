@@ -4,6 +4,8 @@
 @bout_win = 0
 @bout_loss = 0
 @play_again = "y"
+@ai_match_wins = 0
+@player_match_wins = 0
 Choices = %w(rock paper scissors)
 
 puts "Welcome to the Roshambo simulator, v2.2.3. Please enter your name to initialize the simulation."
@@ -64,15 +66,35 @@ def game
   if @wins == 2
     puts "Bout won!"
     @bout_win += 1
-    @wins = @losses = 0
+    @wins = @losses = 1
   elsif @losses == 2
     puts "Bout lost!"
     @bout_loss += 1
     @wins = @losses = 0
   end
 
-  if @bout_win == 2 || @bout_loss == 2
-    puts "game over, play again? (y/n)"
+  if @bout_win == 2
+    @player_match_wins += 1
+    puts "YOU WON!"
+    puts "Current Leaderboard:"
+    puts "#{@player_name} match wins: #{@player_match_wins}"
+    puts "AI match wins: #{@ai_match_wins}"
+    puts ""
+    puts "Would you like to play again?"
+    @play_again = gets.chomp.downcase
+    if @play_again == "y"
+      @draws = @wins = @losses = 0
+      @bout_win = 0
+      @bout_loss = 0
+    end
+  elsif @bout_loss == 2
+    @ai_match_wins += 1
+    puts "YOU LOST!"
+    puts "Current Leaderboard:"
+    puts "#{@player_name} match wins: #{@player_match_wins}"
+    puts "AI match wins: #{@ai_match_wins}"
+    puts ""
+    puts "Would you like to play again?"
     @play_again = gets.chomp.downcase
     keep_playing = @play_again
     if @play_again == "y"
