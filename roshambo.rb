@@ -3,6 +3,7 @@
 @draws = @wins = @losses = 0
 @bout_win = 0
 @bout_loss = 0
+@play_again = "y"
 Choices = %w(rock paper scissors)
 
 puts "Welcome to the Roshambo simulator, v2.2.3. Please enter your name to initialize the simulation."
@@ -34,9 +35,6 @@ else
   puts "Press return to continue boot sequence."
   puts "========================================"
   puts "..."
-end
-
-def replay
 end
 
 def game
@@ -72,14 +70,18 @@ def game
     @bout_loss += 1
     @wins = @losses = 0
   end
+
+  if @bout_win == 2 || @bout_loss == 2
+    puts "game over, play again? (y/n)"
+    @play_again = gets.chomp.downcase
+    keep_playing = @play_again
+    if @play_again == "y"
+      @draws = @wins = @losses = 0
+      @bout_win = 0
+      @bout_loss = 0
+    end
+  end
 end
 
-game until @bout_win == 2 || @bout_loss == 2
-
-puts "game over, play again? (y/n)"
-play_again = gets.chomp.downcase
-if play_again == "y"
-  game
-else
-  puts "thanks for playing, come again!"
-end
+game until @play_again != "y"
+puts "thanks for playing, come again!"
