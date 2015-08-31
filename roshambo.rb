@@ -13,7 +13,7 @@ puts "Welcome to the Roshambo simulator, v2.2.3. Please enter your name to initi
 
 
 if @player_name.empty?
-  puts "Player not detected, exiting simulation."
+  puts "Player not detected, exiting simulator."
   exit
 else
   puts "========================================"
@@ -21,19 +21,19 @@ else
   puts "========================================"
   puts "..."
   puts "========================================"
-  puts "Player throw module initialized"
+  puts "Glorious combat module initialized"
   puts "Press return to continue boot sequence."
   puts "========================================"
   puts "..."
   gets.chomp
   puts "========================================"
-  puts "Prediction module initialized"
+  puts "RPS weapons module initialized"
   puts "Press return to continue boot sequence."
   puts "========================================"
   puts "..."
   gets.chomp
   puts "========================================"
-  puts "Boot sequence complete, prepare to throw"
+  puts "Boot sequence complete, prepare to engage"
   puts "Press return to continue boot sequence."
   puts "========================================"
   puts "..."
@@ -52,24 +52,24 @@ def game
   end
 
   begin
-    puts "#{@player_name}, please type your choice: rock, paper, or scissors."
+    puts "#{@player_name}, it is time to egage the AI in single combat. Please type your weapon of choice: rock, paper, or scissors."
     @player_choice = gets.chomp.downcase
   end until Choices.include?(@player_choice)
 
   computer_choice = rand(3)
 
-  puts "You chose #{@player_choice}, computer choose #{Choices[computer_choice]}"
+  puts "You chose #{@player_choice}, AI choose #{Choices[computer_choice]}"
 
   if @player_choice == Choices[computer_choice]
-    puts "Draw."
+    puts "Draw. THERE CAN BE ONLY ONE! Pick again."
     @draws  += 1
     puts "Wins: #{@wins}, Losses: #{@losses}, draws: #{@draws}"
   elsif @player_choice == Choices[computer_choice - 1]
-    puts "Computer wins"
+    puts "The AI has triumphed over you."
     @losses += 1
     puts "Wins: #{@wins}, Losses: #{@losses}, draws: #{@draws}"
   else
-    puts "player wins"
+    puts "#{@player_name} has beaten the AI in glorious combat!"
     @wins += 1
     puts "Wins: #{@wins}, Losses: #{@losses}, draws: #{@draws}"
   end
@@ -92,7 +92,7 @@ def game
       file.puts leaderboard_player
       file.puts leaderboard_ai
     end
-    puts "YOU WON! and we are in the bout win 'if' path!"
+    puts "Hail the champion, #{@player_name}!"
     puts "Current Leaderboard:"
     puts "#{@player_name} match wins: #{leaderboard_player}"
     puts "AI match wins: #{leaderboard_ai}"
@@ -112,12 +112,12 @@ def game
       file.puts leaderboard_player
       file.puts leaderboard_ai
     end
-    puts "YOU LOST! are we there yet??!"
+    puts "You have fallen in battle. They will sing no songs of you."
     puts "Current Leaderboard:"
     puts "#{@player_name} match wins: #{leaderboard_player}"
     puts "AI match wins: #{leaderboard_ai}"
     puts ""
-    puts "Would you like to play again?"
+    puts "Claim your honor! Battle again? (y/n)"
     @play_again = gets.chomp.downcase
     keep_playing = @play_again
     if @play_again == "y"
@@ -129,4 +129,4 @@ def game
 end
 
 game until @play_again != "y"
-puts "thanks for playing, come again!"
+puts "RPS coliseum simulation complete, exiting."
