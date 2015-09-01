@@ -46,18 +46,15 @@ class RockPaperScissors
   def leaderboard_status
     puts "Current Leaderboard:"
     puts "#{@player_name} match wins: #{@leaderboard_player}"
-    puts "AI match wins: #{@leaderboard_ai}"
-    puts ""
+    puts "AI match wins: #{@leaderboard_ai}\n"
     puts "Defend your honor! Battle again? (y/n)"
   end
 
   def repeat_game
     @play_again = gets.chomp.downcase
-    keep_playing = @play_again
     if @play_again == "y"
       @draws = @wins = @losses = 0
-      @bout_win = 0
-      @bout_loss = 0
+      @bout_win = @bout_loss = 0
     end
   end
 
@@ -117,19 +114,18 @@ class RockPaperScissors
       @leaderboard_player += 1
       @leaderboard_ai += 0
       file_update
+      puts "Hail the champion, #{@player_name}!"
+      leaderboard_status
+      repeat_game
+    elsif @bout_loss == 2
+      @leaderboard_player += 0
+      @leaderboard_ai += 1
+      file_update
+      puts "You have fallen in battle. They will sing no songs of you."
+      leaderboard_status
+      repeat_game
     end
-    puts "Hail the champion, #{@player_name}!"
-    leaderboard_status
-    repeat_game
-  elsif @bout_loss == 2
-    @leaderboard_player += 0
-    @leaderboard_ai += 1
-    file_update
   end
-  puts "You have fallen in battle. They will sing no songs of you."
-  leaderboard_status
-  repeat_game
-end
 end
 
 puts "Welcome to the Roshambo simulator, v2.2.3. Please enter your name to initialize the simulation."
@@ -139,5 +135,4 @@ if @player_name.empty?
 else
   roshambo = RockPaperScissors.new(@player_name)
   roshambo.play
-end
 end
